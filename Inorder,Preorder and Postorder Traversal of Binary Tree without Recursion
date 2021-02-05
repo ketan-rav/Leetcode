@@ -1,0 +1,76 @@
+######################## Preorder Traversal #################################
+class Solution {
+public:
+    vector<int> v;
+    
+    vector<int> preorderTraversal(TreeNode* root) {
+        stack<TreeNode *> s;
+        if(root)
+        {
+            // v.push_back(root->val);
+            // preorderTraversal(root->left);
+            // preorderTraversal(root->right);
+            
+                
+                
+            s.push(root);
+                while(!s.empty())
+                {
+                    struct TreeNode *node=s.top();
+                    v.push_back(node->val);
+                    s.pop();
+                    if(node->right)
+                    s.push(node->right);
+                    if(node->left)
+                    s.push(node->left);
+                    
+                }
+        }
+    
+        return v;
+        
+        
+    }
+};
+
+########################### Inorder Traversal ###############################
+
+Inorder Traversal: 
+
+class Solution {
+public:
+    vector<int> v;
+    vector<int> inorderTraversal(TreeNode* root) {
+        
+         stack<TreeNode *> s;
+        if(root)
+        {
+            TreeNode *curr=root;
+            // till curr becomes null or stack is not empty 
+            while(curr!=NULL || !s.empty())
+            {
+                //traversing the left part first of curr node starting from root node
+                while(curr!=NULL)      
+                {
+                    s.push(curr);
+                    curr=curr->left;
+                }
+                
+//after left part ends of curr node print the top and pop it and move to the right part of curr node     
+                curr=s.top();
+                s.pop();
+                v.push_back(curr->val);
+                
+//move to right part and now work on each node sa same above steps like going to left of next node first then right               
+                curr=curr->right;
+            }
+                
+    
+        }
+    
+        return v;
+    }
+};
+
+
+########################### Postorder Traversal ###############################

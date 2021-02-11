@@ -1,0 +1,46 @@
+Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+
+For example, this binary tree [1,2,2,3,4,4,3] is symmetric:
+
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+ 
+
+But the following [1,2,2,null,3,null,3] is not:
+
+    1
+   / \
+  2   2
+   \   \
+   3    3
+   
+ Solution:
+ 
+ 
+ class Solution {
+public:
+    bool check(TreeNode* leftSub,TreeNode* rightSub)
+    {
+        if(leftSub==NULL && rightSub==NULL)
+            return true;
+        else if(leftSub!=NULL&&rightSub!=NULL)
+        {
+            if(leftSub->val==rightSub->val)
+                return check(leftSub->left,rightSub->right)&&check(leftSub->right,rightSub->left);
+            else
+                return false;
+        }
+        else
+            return false;
+        
+    }
+    bool isSymmetric(TreeNode* root) {
+       if(root==NULL)
+           return true;
+        else
+            return check(root->left,root->right);
+    }
+};

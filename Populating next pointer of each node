@@ -1,0 +1,69 @@
+ou are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
+
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+}
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+Initially, all next pointers are set to NULL.
+
+Example 1:
+
+         
+        1
+       / \
+      2   3
+     / \ /  \
+    4  5 6  7
+Input: root = [1,2,3,4,5,6,7]
+Output: [1,#,2,3,#,4,5,6,7,#]
+
+Solution:
+
+This is modified version of level order traversal...
+After end of each level we need to add the next pointer to current node as NULL,and for other case next to current element will be next element in the level.
+
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(root)
+        {   
+        queue<Node*> q;
+        q.push(root);
+        
+        while(!q.empty())
+        {
+            int n = q.size();  //count of node in each level
+            //cout<<n;
+            
+            while(n--)// this indicates that it will run the number of node times in current level
+            {
+                Node* temp = q.front();  //taking temp as front of queue
+                q.pop();                 //popping queue
+                if(!q.empty() && n>0)    //checking if q is not empty and there are still nodes not visited in current level, mark the next of current node as next in the level
+                    temp->next=q.front();
+                else                      //else marking next of current node to null;
+                    temp->next=NULL;
+                
+                if(temp->left)          //after processing current node adding its left and right to the queue for next level processing
+                {
+                    q.push(temp->left);
+                }
+                if(temp->right)
+                {
+                    q.push(temp->right);
+                }
+            }
+            
+           
+        }
+        
+        }
+        
+       return root; 
+    }
+};
